@@ -1,5 +1,5 @@
 var XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
-var url = "http://127.0.0.1:8000/vibrantminds2/api/organizations/"
+var url = "http://127.0.0.1:8000/vibrantminds2/api/staffs/"
 var xmlhttp = new XMLHttpRequest();
 xmlhttp.open("GET", url);
 xmlhttp.send();

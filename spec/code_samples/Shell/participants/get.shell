@@ -1,0 +1,2 @@
+#!/bin/sh
+curl -X GET -H "Authorization: Token 6d24021956eff2c64b54cb659fe373e1adf09d8a" -H "Content-Type:application/json" -H "JSON:application/json;charset=UTF-8" http://127.0.0.1:8000/vibrantminds2/api/participants/
