@@ -1,0 +1,21 @@
+get:
+  tags:
+    - Sessions
+  summary: Get Session info
+  security:
+    - token: [6d24021956eff2c64b54cb659fe373e1adf09d8a]
+  description: |
+    Retrieve session in the data repository associated with a specified session ID
+  operationId: getSession
+  responses:
+    '200':
+      description: Success
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Sessions'
+          example:
+              schema:
+              $ref: '#/components/examples/sessions_filterid'
+    '400':
+      description: No session associated with that Session ID.     

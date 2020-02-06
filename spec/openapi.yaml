@@ -1,0 +1,56 @@
+openapi: 3.0.0
+info:
+  version: 1.0.0
+  title: Data Repository API Documentation
+  contact:
+    email: rdejesus@ualberta.ca
+  license:
+    name: Apache 2.0
+    url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
+  x-logo:
+    url: '/logo.png'
+  description: >
+    This documentation describes the basic APIs of the Data Repository (PACSLAC-II version)
+
+    # Introduction
+
+    The Data Repository was made to be general enough to be used for multiple applications. For PACSLAC-II
+    the data models include Organizations, Staffs, Participants, Sessions and Events.
+
+
+    **Staff** members can create **Organizations** and invite other **Staff** members or **Participants**.
+    **Sessions** are created when an **Activity** occurs. 
+
+
+    For each **Session**, there is a **Staff** who is supervising the **Activity**, a **Participant** that is completing the **Activity** and
+    the associated **Organization** that the **Activity** is occurring in. The **Session** includes information about the 
+    **Activity** and **Events** occur in the **Session**. **Sessions** can have more than one **Event** (although in PACSLAC, each **Session** only has one **Event**).
+    These **Events** include more detailed information about what is occuring in the **Session**.
+    
+
+    ![alt text](/class2.png)
+
+tags:
+  - name: Organizations
+    description: A User Model for an **Organization** in the Data Repository. Organizations can be anything that has groups of staff and participants.
+        It can be a hospital, university or organization. Staff members can create organizations
+        and add other staff members and participants to it. Activities are associated with organizations that can 
+        be completed by participants and will be saved in a session in the organization for that activity.
+
+  - name: Staffs
+    description: A User Model for a **Staff** member in the Data Repository. Staff Members can be Researchers, Nurses and Doctors.
+        Staff members supervise research sessions and submit survey sessions into the Data Repository.
+
+  - name: Participants
+    description: A User Model for a **Participants** in the Data Repository. Participants are users of interest in the Organization.
+        Participants take part in research studies and can be patients that surveys are completed for.
+
+  - name: Sessions
+    description: Sessions are the main interest of the Data Repository. Sessions can be sessions in which a participant completes a game,
+        a session where a participant is observed for pain, etc. It includes specific information about the app being used.
+
+  - name: Events
+    description: Events occur in a session. It can be an entry of playing another level in the same session, any movements that occur in a session, etc.
+        Events include specific information about the app being used.
+servers:
+  - url: '/vibrantminds2/api/'

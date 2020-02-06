@@ -1,0 +1,18 @@
+[
+    {
+        "is_participant": true,
+        "participant_info": {
+            "firstname": "Player",
+            "lastname": "Test1",
+            "dob": "1960-11-12",
+            "email": "test@test.com",
+            "organizations": [
+                4
+            ],
+            "gender": "F",
+            "extra_info": ""
+        },
+        "username": "player_1",
+        "id": 2
+    }
+]

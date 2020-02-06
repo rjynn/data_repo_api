@@ -1,0 +1,42 @@
+type: object
+properties:
+  is_organization:
+    description: Boolean if object is an organization
+    type: boolean
+    minLength: 1
+    example: true
+  organization_info:
+    description: JSON Object with information about the organization
+    type: JSON
+    minLength: 1
+    example: none
+  organization_info-organization_name:
+    description: Organization Name
+    type: List of Integers
+    minLength: 1
+    example: none
+  organization_info-description:
+    description: Description of Organization
+    type: String
+    minLength: 1
+    example: none
+  organization_info-extra_info:
+    description: Organization's Extra Info
+    type: JSON
+    minLength: 1
+    example: none
+  organization_info-startdate:
+    description: Creation Date of Organization on Data Repository
+    type: Date-Time
+    minLength: 1
+    example: none
+  username:
+    description: Username for Organization log-in
+    type: string
+    minLength: 1
+    example: Smith
+  id:
+    description: ID of Organization
+    type: int
+    minLength: 1
+    example: 3

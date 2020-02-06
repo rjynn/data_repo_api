@@ -1,0 +1,1 @@
+[{"is_staff":true,"staff_info":{"firstname":"Staff","lastname":"Test1","organizations":[4],"email":"test@test.com","extra_info":"","gender":"M"},"username":"staff_1","id":3},{"is_staff":true,"staff_info":{"firstname":"Staff","lastname":"Test2","organizations":[],"email":"staff2@gmail.com","extra_info":"","gender":"F"},"username":"staff_2","id":5}]

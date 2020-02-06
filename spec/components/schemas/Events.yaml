@@ -1,0 +1,22 @@
+type: object
+properties:
+  event:
+    description: JSON of event - specific to app
+    type: JSON
+    minLength: 1
+    example: true
+  score:
+    description: Score of event
+    type: Integer
+    minLength: 1
+    example: none
+  event_date:
+    description: Date-Time of event
+    type: Date-Time
+    minLength: 1
+    example: none
+  id:
+    description: ID of Event
+    type: int
+    minLength: 1
+    example: 3

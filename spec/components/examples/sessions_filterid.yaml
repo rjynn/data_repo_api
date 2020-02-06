@@ -1,0 +1,15 @@
+[
+    {
+        "session_date": "2010-01-03T12:00:09.595188Z",
+        "staff": 3,
+        "participant": 2,
+        "organization": 4,
+        "score": 6,
+        "session_info": "{'admission': False, 'severe': True, 'activity': 'Walking'}",
+        "settings": "",
+        "events": [
+            1
+        ],
+        "id": 1
+    }
+]

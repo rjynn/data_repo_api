@@ -1,0 +1,21 @@
+get:
+  tags:
+    - Staffs
+  summary: List Staff Members in an Organization
+  security:
+    - token: [6d24021956eff2c64b54cb659fe373e1adf09d8a]
+  description: |
+    Retrieve all Staff Members in an Organization
+  operationId: getStaffOrg
+  responses:
+    '200':
+      description: Success
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Staffs'
+          example:
+            schema:
+            $ref: '#/components/examples/staffs_filterid'
+    '400':
+      description: No staffs associated with that organization.

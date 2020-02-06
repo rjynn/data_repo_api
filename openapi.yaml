@@ -1,0 +1,821 @@
+openapi: 3.0.0
+info:
+  version: 1.0.0
+  title: Data Repository API Documentation
+  contact:
+    email: rdejesus@ualberta.ca
+  license:
+    name: Apache 2.0
+    url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
+  x-logo:
+    url: /logo.png
+  description: |
+    This documentation describes the basic APIs of the Data Repository (PACSLAC-II version)
+    # Introduction
+    The Data Repository was made to be general enough to be used for multiple applications. For PACSLAC-II the data models include Organizations, Staffs, Participants, Sessions and Events.
+
+    **Staff** members can create **Organizations** and invite other **Staff** members or **Participants**. **Sessions** are created when an **Activity** occurs. 
+
+    For each **Session**, there is a **Staff** who is supervising the **Activity**, a **Participant** that is completing the **Activity** and the associated **Organization** that the **Activity** is occurring in. The **Session** includes information about the  **Activity** and **Events** occur in the **Session**. **Sessions** can have more than one **Event** (although in PACSLAC, each **Session** only has one **Event**). These **Events** include more detailed information about what is occuring in the **Session**.
+
+    ![alt text](/class2.png)
+tags:
+  - name: Organizations
+    description: 'A User Model for an **Organization** in the Data Repository. Organizations can be anything that has groups of staff and participants. It can be a hospital, university or organization. Staff members can create organizations and add other staff members and participants to it. Activities are associated with organizations that can be completed by participants and will be saved in a session in the organization for that activity.'
+  - name: Staffs
+    description: 'A User Model for a **Staff** member in the Data Repository. Staff Members can be Researchers, Nurses and Doctors. Staff members supervise research sessions and submit survey sessions into the Data Repository.'
+  - name: Participants
+    description: A User Model for a **Participants** in the Data Repository. Participants are users of interest in the Organization. Participants take part in research studies and can be patients that surveys are completed for.
+  - name: Sessions
+    description: 'Sessions are the main interest of the Data Repository. Sessions can be sessions in which a participant completes a game, a session where a participant is observed for pain, etc. It includes specific information about the app being used.'
+  - name: Events
+    description: 'Events occur in a session. It can be an entry of playing another level in the same session, any movements that occur in a session, etc. Events include specific information about the app being used.'
+servers:
+  - url: /vibrantminds2/api/
+paths:
+  /events:
+    get:
+      tags:
+        - Events
+      summary: List all Events in the data repository
+      security:
+        - token:
+            - 6d24021956eff2c64b54cb659fe373e1adf09d8a
+      description: |
+        Retrieve all events in the data repository
+      operationId: getOrganizationList
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Events'
+              example:
+                schema: null
+                $ref: '#/components/examples/events'
+        '400':
+          description: No events associated with that session.
+  '/events/{event_id}/filter_id':
+    get:
+      tags:
+        - Events
+      summary: Get Event info
+      security:
+        - token:
+            - 6d24021956eff2c64b54cb659fe373e1adf09d8a
+      description: |
+        Retrieve event in the data repository associated with a specified event ID
+      operationId: getEvent
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Events'
+              example:
+                schema: null
+                $ref: '#/components/examples/events_filterid'
+        '400':
+          description: No event associated with that Event ID.
+  '/events/{session_id}/filter_session':
+    get:
+      tags:
+        - Events
+      summary: List all Events of a Session
+      security:
+        - token:
+            - 6d24021956eff2c64b54cb659fe373e1adf09d8a
+      description: |
+        Retrieve all events in the data repository associated with a specified session
+      operationId: getOrganizationList
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Events'
+              example:
+                schema: null
+                $ref: '#/components/examples/events'
+        '400':
+          description: No events associated with that session.
+  /organizations:
+    get:
+      tags:
+        - Organizations
+      summary: List all Organizations
+      security:
+        - token:
+            - 6d24021956eff2c64b54cb659fe373e1adf09d8a
+      description: |
+        Retrieve all organizations in the data repository
+      operationId: getOrganizationList
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Organization'
+              example:
+                schema: null
+                $ref: '#/components/examples/Org'
+      x-code-samples:
+        - lang: JavaScript
+          source: var test;
+        - lang: Shell
+          source: |
+            #!/bin/sh
+            curl -X GET -H "Authorization: Token 6d24021956eff2c64b54cb659fe373e1adf09d8a" -H "Content-Type:application/json" -H "JSON:application/json;charset=UTF-8" http://127.0.0.1:8000/vibrantminds2/api/organizations/
+  '/organizations/{id}/filter_id':
+    get:
+      tags:
+        - Organizations
+      summary: Get Organization info
+      security:
+        - token:
+            - 6d24021956eff2c64b54cb659fe373e1adf09d8a
+      description: |
+        Retrieve information about a specified organization using an ID
+      operationId: getOrganization
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Organization'
+              example:
+                schema: null
+                $ref: '#/components/examples/Org'
+        '400':
+          description: No Organization associated with that ID.
+  /participants:
+    get:
+      tags:
+        - Participants
+      summary: List all Participants
+      security:
+        - token:
+            - 6d24021956eff2c64b54cb659fe373e1adf09d8a
+      description: |
+        Retrieve all Participants in the data repository
+      operationId: getParticipantList
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Participants'
+              example:
+                schema: null
+                $ref: '#/components/examples/participants'
+  '/participants/{id}/filter_id':
+    get:
+      tags:
+        - Participants
+      summary: Get Participant
+      security:
+        - token:
+            - 6d24021956eff2c64b54cb659fe373e1adf09d8a
+      description: |
+        Retrieve a specified participant's information 
+      operationId: getParticipant
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Participants'
+              example:
+                schema: null
+                $ref: '#/components/examples/participants_filterid'
+        '400':
+          description: No Participant associated with that ID.
+  '/participants/{id}/filter_organization':
+    get:
+      tags:
+        - Participants
+      summary: List Participants in an Organization
+      security:
+        - token:
+            - 6d24021956eff2c64b54cb659fe373e1adf09d8a
+      description: |
+        Retrieve all participants associated with a specified organization
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Participants'
+              example:
+                schema: null
+                $ref: '#/components/examples/participants'
+        '400':
+          description: No Participant associated with that organization.
+  /sessions:
+    get:
+      tags:
+        - Sessions
+      summary: List all Sessions
+      security:
+        - token:
+            - 6d24021956eff2c64b54cb659fe373e1adf09d8a
+      description: |
+        Retrieve all sessions in the data repository
+      operationId: getSessionList
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Sessions'
+              example:
+                schema: null
+                $ref: '#/components/examples/sessions'
+  '/sessions/{org_id}/filter_organization':
+    get:
+      tags:
+        - Sessions
+      summary: List all Sessions with specific Organization
+      security:
+        - token:
+            - 6d24021956eff2c64b54cb659fe373e1adf09d8a
+      description: |
+        Retrieve all sessions in the data repository associated with a specified organization ID
+      operationId: getSessionOrg
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Sessions'
+              example:
+                schema: null
+                $ref: '#/components/examples/sessions'
+        '400':
+          description: No Sessions associated with that organization.
+  '/sessions/{participant_id}/filter_participant':
+    get:
+      tags:
+        - Sessions
+      summary: List all Sessions with specific Participant
+      security:
+        - token:
+            - 6d24021956eff2c64b54cb659fe373e1adf09d8a
+      description: |
+        Retrieve all sessions in the data repository associated with a specified participant ID
+      operationId: getSessionPart
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Sessions'
+              example:
+                schema: null
+                $ref: '#/components/examples/sessions'
+        '400':
+          description: No sessions associated with that participant.
+  '/sessions/{session_id}/filter_id':
+    get:
+      tags:
+        - Sessions
+      summary: Get Session info
+      security:
+        - token:
+            - 6d24021956eff2c64b54cb659fe373e1adf09d8a
+      description: |
+        Retrieve session in the data repository associated with a specified session ID
+      operationId: getSession
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Sessions'
+              example:
+                schema: null
+                $ref: '#/components/examples/sessions_filterid'
+        '400':
+          description: No session associated with that Session ID.
+  '/sessions/{staff_id}/filter_staff':
+    get:
+      tags:
+        - Sessions
+      summary: List all Sessions with specific Staff
+      security:
+        - token:
+            - 6d24021956eff2c64b54cb659fe373e1adf09d8a
+      description: |
+        Retrieve all sessions in the data repository associated with a specified staff ID
+      operationId: getSessionStaff
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Sessions'
+              example:
+                schema: null
+                $ref: '#/components/examples/sessions'
+        '400':
+          description: No sessions associated with that staff.
+  /staffs:
+    get:
+      tags:
+        - Staffs
+      summary: List all Staff Members
+      security:
+        - token:
+            - 6d24021956eff2c64b54cb659fe373e1adf09d8a
+      description: |
+        Retrieve all Staff Members in the data repository
+      operationId: getStaffList
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Staffs'
+              example:
+                schema: null
+                $ref: '#/components/examples/staffs'
+  '/staffs/{org_id}/filter_organization':
+    get:
+      tags:
+        - Staffs
+      summary: List Staff Members in an Organization
+      security:
+        - token:
+            - 6d24021956eff2c64b54cb659fe373e1adf09d8a
+      description: |
+        Retrieve all Staff Members in an Organization
+      operationId: getStaffOrg
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Staffs'
+              example:
+                schema: null
+                $ref: '#/components/examples/staffs_filterid'
+        '400':
+          description: No staffs associated with that organization.
+  '/staffs/{staff_id}/filter_id':
+    get:
+      tags:
+        - Staffs
+      summary: Get Staff Member info
+      security:
+        - token:
+            - 6d24021956eff2c64b54cb659fe373e1adf09d8a
+      description: |
+        Retrieve information about a specified staff member using an ID
+      operationId: getStaff
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Staffs'
+              example:
+                schema: null
+                $ref: '#/components/examples/staffs_filterid'
+        '400':
+          description: No staff associated with that ID.
+components:
+  schemas:
+    Email:
+      description: User email address
+      type: string
+      format: test
+      example: john.smith@example.com
+    Events:
+      type: object
+      properties:
+        event:
+          description: JSON of event - specific to app
+          type: JSON
+          minLength: 1
+          example: true
+        score:
+          description: Score of event
+          type: Integer
+          minLength: 1
+          example: none
+        event_date:
+          description: Date-Time of event
+          type: Date-Time
+          minLength: 1
+          example: none
+        id:
+          description: ID of Event
+          type: int
+          minLength: 1
+          example: 3
+    Organization:
+      type: object
+      properties:
+        is_organization:
+          description: Boolean if object is an organization
+          type: boolean
+          minLength: 1
+          example: true
+        organization_info:
+          description: JSON Object with information about the organization
+          type: JSON
+          minLength: 1
+          example: none
+        organization_info-organization_name:
+          description: Organization Name
+          type: List of Integers
+          minLength: 1
+          example: none
+        organization_info-description:
+          description: Description of Organization
+          type: String
+          minLength: 1
+          example: none
+        organization_info-extra_info:
+          description: Organization's Extra Info
+          type: JSON
+          minLength: 1
+          example: none
+        organization_info-startdate:
+          description: Creation Date of Organization on Data Repository
+          type: Date-Time
+          minLength: 1
+          example: none
+        username:
+          description: Username for Organization log-in
+          type: string
+          minLength: 1
+          example: Smith
+        id:
+          description: ID of Organization
+          type: int
+          minLength: 1
+          example: 3
+    Participants:
+      type: object
+      properties:
+        is_participant:
+          description: Boolean if object is a participant
+          type: boolean
+          minLength: 1
+          example: true
+        participant_info:
+          description: JSON Object with information about the participant
+          type: JSON
+          minLength: 1
+          example: none
+        participant_info-firstname:
+          description: Participant's first name
+          type: List of Integers
+          minLength: 1
+          example: none
+        participant_info-lastname:
+          description: Participant's last name
+          type: String
+          minLength: 1
+          example: none
+        participant_info-extra_info:
+          description: Participants Extra Info
+          type: JSON
+          minLength: 1
+          example: none
+        participant_info-dob:
+          description: Participant's Date of Birth
+          type: Date-Time
+          minLength: 1
+          example: none
+        participant_info-organizations:
+          description: Array of Organization IDs the Participant is a part of
+          type: Array
+          minLength: 1
+          example: none
+        participant_info-email:
+          description: Participant's email
+          type: String
+          minLength: 1
+          example: none
+        participant_info-gender:
+          description: 'Participant''s Gender - Male, Female or Other'
+          type: String
+          minLength: 1
+          example: none
+        username:
+          description: Username for Participant log-in
+          type: string
+          minLength: 1
+          example: Smith
+        id:
+          description: ID of Participant
+          type: int
+          minLength: 1
+          example: 3
+    Sessions:
+      type: object
+      properties:
+        session_date:
+          description: Date of Session
+          type: Date-Time
+          minLength: 1
+          example: true
+        staff:
+          description: ID of staff supervising or entering session
+          type: String
+          minLength: 1
+          example: none
+        participant:
+          description: ID of participant participating in the session
+          type: String
+          minLength: 1
+          example: none
+        organization:
+          description: ID of organization session is occurring in
+          type: String
+          minLength: 1
+          example: none
+        score:
+          description: Score of session (This can mean many different things depending on app)
+          type: Integer
+          minLength: 1
+          example: none
+        session_info:
+          description: JSON object of information about the session
+          type: JSON
+          minLength: 1
+          example: none
+        session_info-admission:
+          description: Boolean if this session occurred during admission of participant to hospital/resident
+          type: Boolean
+          minLength: 1
+          example: none
+        session_info-severe:
+          description: Boolean if this session was marked as the participant suspected as having severe pain
+          type: Boolean
+          minLength: 1
+          example: none
+        session_info-activity:
+          description: The activity that was being completed during this session
+          type: String
+          minLength: 1
+          example: none
+        settings:
+          description: Settings of the session
+          type: JSON
+          minLength: 0
+          example: Smith
+        events:
+          description: Array of event IDs associated with this session
+          type: Array
+          minLength: 1
+          example: Smith
+        id:
+          description: ID of Session
+          type: int
+          minLength: 1
+          example: 3
+    Staffs:
+      type: object
+      properties:
+        is_organization:
+          description: Boolean if object is a staff
+          type: boolean
+          minLength: 1
+          example: true
+        staff_info:
+          description: JSON Object with information about the staff
+          type: JSON
+          minLength: 1
+          example: none
+        staff_info-firstname:
+          description: Staff Member's Firstname
+          type: String
+          minLength: 1
+          example: none
+        staff_info-lastname:
+          description: Staff Member's Lastname
+          type: String
+          minLength: 1
+          example: none
+        staff_info-organizations:
+          description: List of Organization IDs the staff is a member of
+          type: List of Integers
+          minLength: 1
+          example: none
+        staff_info-email:
+          description: Staff Member's Email
+          type: String
+          minLength: 1
+          example: none
+        staff_info-extra_info:
+          description: Staff Member's Extra Info
+          type: JSON
+          minLength: 1
+          example: none
+        staff_info-gender:
+          description: 'Staff Member''s Gender - Male, Female or Other'
+          type: String
+          minLength: 1
+          example: none
+        username:
+          description: Username for Staff log-in
+          type: string
+          minLength: 1
+          example: Smith
+        id:
+          description: ID of Staff
+          type: int
+          minLength: 1
+          example: 3
+    User:
+      type: object
+      properties:
+        username:
+          description: User supplied username
+          type: string
+          minLength: 4
+          example: John78
+        firstName:
+          description: User first name
+          type: string
+          minLength: 1
+          example: John
+        lastName:
+          description: User last name
+          type: string
+          minLength: 1
+          example: Smith
+        email:
+          $ref: '#/components/schemas/Email'
+  examples:
+    events_filterid:
+      - event: '{''Grimacing'': False, ''Sad look'': True, ''Tighter Face'': False, ''Dirty Look '': True, ''Change in Eyes\n(Squinting, dull, bright, increased eye\nmovements)'': False, ''Frowning'': False, ''Pain Expression'': False, ''Grim Face'': True, ''Clenching Teeth'': False, ''Wincing'': False, ''Open Mouth'': False, ''Creasing Forehead'': False, ''Screwing Up Nose'': False, ''Physical Aggression (e.g. pushing people and/or objects, scratching others, hitting others, striking, kicking)'': True, ''Verbal Aggression'': False, ''Not Wanting to be Touched'': False, ''Not Allowing People Near'': False, ''Angry/Mad'': False, ''Throwing Things'': False, ''Increased Confusion'': False, ''Anxious'': False, ''Upset'': False, ''Agitated'': False, ''Cranky/Irritable'': False, ''Frustrated'': False, ''Fidgeting'': False, ''Pulling Away'': False, ''Flinching'': False, ''Restless'': False, ''Pacing'': False, ''Wandering'': False, ''Trying to Leave'': False, ''Refusing to Move'': False, ''Thrashing'': False, ''Decreased Activity'': False, ''Refusing Medications'': False, ''Moving Slow'': False, ''Impulsive Behaviours (Repeat Movements)'': True, ''Uncooperative/Resistance to care'': False, ''Guarding Sore Area'': False, ''Touching/Holding Sore Area'': False, ''Limping'': False, ''Clenching Fist'': False, ''Going into Fetal Position'': False, ''Stiff/Rigid '': False, ''Pale Face'': False, ''Flushed, Red Face'': False, ''Teary Eyed'': False, ''Sweating'': False, ''Shaking/Trembling'': False, ''Cold Clammy'': False, ''Decreased Sleep'': False, ''Increased Sleep During the Day '': False, ''Decreased Appetite'': False, ''Increased Appetite'': False, ''Screaming/Yelling'': False, ''Calling Out (i.e. for help)'': False, ''Crying'': False, ''A Specific Sound of Vocalization for pain “ow,” “ouch”'': False, ''Moaning and groaning'': True, ''Mumbling'': False, ''Grunting'': False}'
+        score: 6
+        event_date: '2020-02-03T12:00:10Z'
+        id: 1
+    events:
+      - event: '{''Grimacing'': False, ''Sad look'': True, ''Tighter Face'': False, ''Dirty Look '': True, ''Change in Eyes\n(Squinting, dull, bright, increased eye\nmovements)'': False, ''Frowning'': False, ''Pain Expression'': False, ''Grim Face'': True, ''Clenching Teeth'': False, ''Wincing'': False, ''Open Mouth'': False, ''Creasing Forehead'': False, ''Screwing Up Nose'': False, ''Physical Aggression (e.g. pushing people and/or objects, scratching others, hitting others, striking, kicking)'': True, ''Verbal Aggression'': False, ''Not Wanting to be Touched'': False, ''Not Allowing People Near'': False, ''Angry/Mad'': False, ''Throwing Things'': False, ''Increased Confusion'': False, ''Anxious'': False, ''Upset'': False, ''Agitated'': False, ''Cranky/Irritable'': False, ''Frustrated'': False, ''Fidgeting'': False, ''Pulling Away'': False, ''Flinching'': False, ''Restless'': False, ''Pacing'': False, ''Wandering'': False, ''Trying to Leave'': False, ''Refusing to Move'': False, ''Thrashing'': False, ''Decreased Activity'': False, ''Refusing Medications'': False, ''Moving Slow'': False, ''Impulsive Behaviours (Repeat Movements)'': True, ''Uncooperative/Resistance to care'': False, ''Guarding Sore Area'': False, ''Touching/Holding Sore Area'': False, ''Limping'': False, ''Clenching Fist'': False, ''Going into Fetal Position'': False, ''Stiff/Rigid '': False, ''Pale Face'': False, ''Flushed, Red Face'': False, ''Teary Eyed'': False, ''Sweating'': False, ''Shaking/Trembling'': False, ''Cold Clammy'': False, ''Decreased Sleep'': False, ''Increased Sleep During the Day '': False, ''Decreased Appetite'': False, ''Increased Appetite'': False, ''Screaming/Yelling'': False, ''Calling Out (i.e. for help)'': False, ''Crying'': False, ''A Specific Sound of Vocalization for pain “ow,” “ouch”'': False, ''Moaning and groaning'': True, ''Mumbling'': False, ''Grunting'': False}'
+        score: 6
+        event_date: '2020-02-03T12:00:10Z'
+        id: 1
+      - event: '{''Grimacing'': False, ''Sad look'': False, ''Tighter Face'': False, ''Dirty Look '': True, ''Change in Eyes\n(Squinting, dull, bright, increased eye\nmovements)'': False, ''Frowning'': False, ''Pain Expression'': False, ''Grim Face'': True, ''Clenching Teeth'': False, ''Wincing'': False, ''Open Mouth'': True, ''Creasing Forehead'': True, ''Screwing Up Nose'': False, ''Physical Aggression (e.g. pushing people and/or objects, scratching others, hitting others, striking, kicking)'': False, ''Verbal Aggression'': False, ''Not Wanting to be Touched'': False, ''Not Allowing People Near'': False, ''Angry/Mad'': False, ''Throwing Things'': False, ''Increased Confusion'': False, ''Anxious'': True, ''Upset'': True, ''Agitated'': False, ''Cranky/Irritable'': False, ''Frustrated'': False, ''Fidgeting'': False, ''Pulling Away'': False, ''Flinching'': False, ''Restless'': False, ''Pacing'': False, ''Wandering'': False, ''Trying to Leave'': False, ''Refusing to Move'': False, ''Thrashing'': False, ''Decreased Activity'': False, ''Refusing Medications'': False, ''Moving Slow'': False, ''Impulsive Behaviours (Repeat Movements)'': False, ''Uncooperative/Resistance to care'': False, ''Guarding Sore Area'': False, ''Touching/Holding Sore Area'': False, ''Limping'': False, ''Clenching Fist'': False, ''Going into Fetal Position'': False, ''Stiff/Rigid '': False, ''Pale Face'': True, ''Flushed, Red Face'': True, ''Teary Eyed'': False, ''Sweating'': False, ''Shaking/Trembling'': False, ''Cold Clammy'': False, ''Decreased Sleep'': False, ''Increased Sleep During the Day '': False, ''Decreased Appetite'': False, ''Increased Appetite'': False, ''Screaming/Yelling'': False, ''Calling Out (i.e. for help)'': False, ''Crying'': False, ''A Specific Sound of Vocalization for pain “ow,” “ouch”'': False, ''Moaning and groaning'': True, ''Mumbling'': False, ''Grunting'': False}'
+        score: 9
+        event_date: '2020-02-03T12:15:52Z'
+        id: 2
+    Org:
+      - is_organization: true
+        organization_info:
+          organization_name: Organization Test1
+          description: Test organization 1
+          startdate: '2020-02-03T11:26:54.709620Z'
+          extra_info: '{"city":"Edmonton", "province":"Alberta", "location_address":"10230 111 Ave NW, Edmonton, AB T5G 0B7"}'
+          activities: []
+        username: organization_1
+        id: 4
+    participants_filterid:
+      - is_participant: true
+        participant_info:
+          firstname: Player
+          lastname: Test1
+          dob: '1960-11-12'
+          email: test@test.com
+          organizations:
+            - 4
+          gender: F
+          extra_info: ''
+        username: player_1
+        id: 2
+    participants:
+      - is_participant: true
+        participant_info:
+          firstname: Player
+          lastname: Test1
+          dob: '1960-11-12'
+          email: test@test.com
+          organizations:
+            - 4
+          gender: F
+          extra_info: ''
+        username: player_1
+        id: 2
+      - is_participant: true
+        participant_info:
+          firstname: Participant
+          lastname: Test2
+          dob: '1920-10-11'
+          email: test@test.com
+          organizations:
+            - 4
+          gender: F
+          extra_info: ''
+        username: participant_2
+        id: 6
+      - is_participant: true
+        participant_info:
+          firstname: Participant
+          lastname: Test3
+          dob: '1922-12-11'
+          email: rtest@gmail.com
+          organizations:
+            - 4
+          gender: O
+          extra_info: ''
+        username: participant_3
+        id: 7
+    sessions_filterid:
+      - session_date: '2010-01-03T12:00:09.595188Z'
+        staff: 3
+        participant: 2
+        organization: 4
+        score: 6
+        session_info: '{''admission'': False, ''severe'': True, ''activity'': ''Walking''}'
+        settings: ''
+        events:
+          - 1
+        id: 1
+    sessions:
+      - session_date: '2010-01-03T12:00:09.595188Z'
+        staff: 3
+        participant: 2
+        organization: 4
+        score: 6
+        session_info: '{''admission'': False, ''severe'': True, ''activity'': ''Walking''}'
+        settings: ''
+        events:
+          - 1
+        id: 1
+      - session_date: '2010-01-03T12:15:52.357262Z'
+        staff: 3
+        participant: 2
+        organization: 4
+        score: 9
+        session_info: '{''admission'': False, ''severe'': False, ''activity'': ''Walking''}'
+        settings: ''
+        events:
+          - 2
+        id: 2
+    staffs_filterid:
+      - is_staff: true
+        staff_info:
+          firstname: Staff
+          lastname: Test1
+          organizations:
+            - 4
+          email: test@test.com
+          extra_info: ''
+          gender: M
+        username: staff_1
+        id: 3
+    staffs:
+      - is_staff: true
+        staff_info:
+          firstname: Staff
+          lastname: Test1
+          organizations:
+            - 4
+          email: test@test.com
+          extra_info: ''
+          gender: M
+        username: staff_1
+        id: 3
+      - is_staff: true
+        staff_info:
+          firstname: Staff
+          lastname: Test2
+          organizations: []
+          email: staff2@gmail.com
+          extra_info: ''
+          gender: F
+        username: staff_2
+        id: 5
+  headers:
+    ExpiresAfter:
+      description: date in UTC when token expires
+      schema:
+        type: string
+        format: date-time
+  securitySchemes:
+    token:
+      type: token
+      in: header
+      name: token
+      description: All API requests require a token to be included in the headers.
