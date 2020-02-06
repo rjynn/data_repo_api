@@ -11,7 +11,7 @@
       "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
     },
     "x-logo": {
-      "url": "/logo.png"
+      "url": "https://rjynn.github.io/data_repo_api/web/logo.png"
     },
     "description": "This documentation describes the basic APIs of the Data Repository (PACSLAC-II version)\n# Introduction\nThe Data Repository was made to be general enough to be used for multiple applications. For PACSLAC-II the data models include Organizations, Staffs, Participants, Sessions and Events.\n\n**Staff** members can create **Organizations** and invite other **Staff** members or **Participants**. **Sessions** are created when an **Activity** occurs. \n\nFor each **Session**, there is a **Staff** who is supervising the **Activity**, a **Participant** that is completing the **Activity** and the associated **Organization** that the **Activity** is occurring in. The **Session** includes information about the  **Activity** and **Events** occur in the **Session**. **Sessions** can have more than one **Event** (although in PACSLAC, each **Session** only has one **Event**). These **Events** include more detailed information about what is occuring in the **Session**.\n\n![alt text](/class2.png)\n"
   },
@@ -76,7 +76,17 @@
           "400": {
             "description": "No events associated with that session."
           }
-        }
+        },
+        "x-code-samples": [
+          {
+            "lang": "JavaScript",
+            "source": "var XMLHttpRequest = require(\"xmlhttprequest\").XMLHttpRequest;\nvar url = \"http://127.0.0.1:8000/vibrantminds2/api/events/\"\nvar xmlhttp = new XMLHttpRequest();\nxmlhttp.open(\"GET\", url);\nxmlhttp.send();\nxmlhttp.onreadystatechange = (e) => {\n    console.log(xmlhttp.responseText)\n}\n"
+          },
+          {
+            "lang": "Shell",
+            "source": "#!/bin/sh\ncurl -X GET -H \"Authorization: Token 6d24021956eff2c64b54cb659fe373e1adf09d8a\" -H \"Content-Type:application/json\" -H \"JSON:application/json;charset=UTF-8\" http://127.0.0.1:8000/vibrantminds2/api/events/\n"
+          }
+        ]
       }
     },
     "/events/{event_id}/filter_id": {
@@ -185,7 +195,7 @@
         "x-code-samples": [
           {
             "lang": "JavaScript",
-            "source": "var XMLHttpRequest = require(\"xmlhttprequest\").XMLHttpRequest;\nvar url = \"http://127.0.0.1:8000/vibrantminds2/api/sessions/\"\nvar xmlhttp = new XMLHttpRequest();\nxmlhttp.open(\"GET\", url);\nxmlhttp.send();\nxmlhttp.onreadystatechange = (e) => {\n    console.log(xmlhttp.responseText)\n}\n"
+            "source": "var XMLHttpRequest = require(\"xmlhttprequest\").XMLHttpRequest;\nvar url = \"http://127.0.0.1:8000/vibrantminds2/api/organizations/\"\nvar xmlhttp = new XMLHttpRequest();\nxmlhttp.open(\"GET\", url);\nxmlhttp.send();\nxmlhttp.onreadystatechange = (e) => {\n    console.log(xmlhttp.responseText)\n}\n"
           },
           {
             "lang": "Shell",
@@ -260,7 +270,17 @@
               }
             }
           }
-        }
+        },
+        "x-code-samples": [
+          {
+            "lang": "JavaScript",
+            "source": "var XMLHttpRequest = require(\"xmlhttprequest\").XMLHttpRequest;\nvar url = \"http://127.0.0.1:8000/vibrantminds2/api/participants/\"\nvar xmlhttp = new XMLHttpRequest();\nxmlhttp.open(\"GET\", url);\nxmlhttp.send();\nxmlhttp.onreadystatechange = (e) => {\n    console.log(xmlhttp.responseText)\n}\n"
+          },
+          {
+            "lang": "Shell",
+            "source": "#!/bin/sh\ncurl -X GET -H \"Authorization: Token 6d24021956eff2c64b54cb659fe373e1adf09d8a\" -H \"Content-Type:application/json\" -H \"JSON:application/json;charset=UTF-8\" http://127.0.0.1:8000/vibrantminds2/api/participants/\n"
+          }
+        ]
       }
     },
     "/participants/{id}/filter_id": {
@@ -364,7 +384,17 @@
               }
             }
           }
-        }
+        },
+        "x-code-samples": [
+          {
+            "lang": "JavaScript",
+            "source": "var XMLHttpRequest = require(\"xmlhttprequest\").XMLHttpRequest;\nvar url = \"http://127.0.0.1:8000/vibrantminds2/api/sessions/\"\nvar xmlhttp = new XMLHttpRequest();\nxmlhttp.open(\"GET\", url);\nxmlhttp.send();\nxmlhttp.onreadystatechange = (e) => {\n    console.log(xmlhttp.responseText)\n}\n"
+          },
+          {
+            "lang": "Shell",
+            "source": "#!/bin/sh\ncurl -X GET -H \"Authorization: Token 6d24021956eff2c64b54cb659fe373e1adf09d8a\" -H \"Content-Type:application/json\" -H \"JSON:application/json;charset=UTF-8\" http://127.0.0.1:8000/vibrantminds2/api/sessions/\n"
+          }
+        ]
       }
     },
     "/sessions/{org_id}/filter_organization": {
@@ -541,7 +571,17 @@
               }
             }
           }
-        }
+        },
+        "x-code-samples": [
+          {
+            "lang": "JavaScript",
+            "source": "var XMLHttpRequest = require(\"xmlhttprequest\").XMLHttpRequest;\nvar url = \"http://127.0.0.1:8000/vibrantminds2/api/staffs/\"\nvar xmlhttp = new XMLHttpRequest();\nxmlhttp.open(\"GET\", url);\nxmlhttp.send();\nxmlhttp.onreadystatechange = (e) => {\n    console.log(xmlhttp.responseText)\n}\n"
+          },
+          {
+            "lang": "Shell",
+            "source": "#!/bin/sh\ncurl -X GET -H \"Authorization: Token 6d24021956eff2c64b54cb659fe373e1adf09d8a\" -H \"Content-Type:application/json\" -H \"JSON:application/json;charset=UTF-8\" http://127.0.0.1:8000/vibrantminds2/api/staffs/\n"
+          }
+        ]
       }
     },
     "/staffs/{org_id}/filter_organization": {

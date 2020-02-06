@@ -8,7 +8,7 @@ info:
     name: Apache 2.0
     url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
   x-logo:
-    url: /logo.png
+    url: 'https://rjynn.github.io/data_repo_api/web/logo.png'
   description: |
     This documentation describes the basic APIs of the Data Repository (PACSLAC-II version)
     # Introduction
@@ -56,6 +56,21 @@ paths:
                 $ref: '#/components/examples/events'
         '400':
           description: No events associated with that session.
+      x-code-samples:
+        - lang: JavaScript
+          source: |
+            var XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
+            var url = "http://127.0.0.1:8000/vibrantminds2/api/events/"
+            var xmlhttp = new XMLHttpRequest();
+            xmlhttp.open("GET", url);
+            xmlhttp.send();
+            xmlhttp.onreadystatechange = (e) => {
+                console.log(xmlhttp.responseText)
+            }
+        - lang: Shell
+          source: |
+            #!/bin/sh
+            curl -X GET -H "Authorization: Token 6d24021956eff2c64b54cb659fe373e1adf09d8a" -H "Content-Type:application/json" -H "JSON:application/json;charset=UTF-8" http://127.0.0.1:8000/vibrantminds2/api/events/
   '/events/{event_id}/filter_id':
     get:
       tags:
@@ -127,7 +142,7 @@ paths:
         - lang: JavaScript
           source: |
             var XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
-            var url = "http://127.0.0.1:8000/vibrantminds2/api/sessions/"
+            var url = "http://127.0.0.1:8000/vibrantminds2/api/organizations/"
             var xmlhttp = new XMLHttpRequest();
             xmlhttp.open("GET", url);
             xmlhttp.send();
@@ -182,6 +197,21 @@ paths:
               example:
                 schema: null
                 $ref: '#/components/examples/participants'
+      x-code-samples:
+        - lang: JavaScript
+          source: |
+            var XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
+            var url = "http://127.0.0.1:8000/vibrantminds2/api/participants/"
+            var xmlhttp = new XMLHttpRequest();
+            xmlhttp.open("GET", url);
+            xmlhttp.send();
+            xmlhttp.onreadystatechange = (e) => {
+                console.log(xmlhttp.responseText)
+            }
+        - lang: Shell
+          source: |
+            #!/bin/sh
+            curl -X GET -H "Authorization: Token 6d24021956eff2c64b54cb659fe373e1adf09d8a" -H "Content-Type:application/json" -H "JSON:application/json;charset=UTF-8" http://127.0.0.1:8000/vibrantminds2/api/participants/
   '/participants/{id}/filter_id':
     get:
       tags:
@@ -248,6 +278,21 @@ paths:
               example:
                 schema: null
                 $ref: '#/components/examples/sessions'
+      x-code-samples:
+        - lang: JavaScript
+          source: |
+            var XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
+            var url = "http://127.0.0.1:8000/vibrantminds2/api/sessions/"
+            var xmlhttp = new XMLHttpRequest();
+            xmlhttp.open("GET", url);
+            xmlhttp.send();
+            xmlhttp.onreadystatechange = (e) => {
+                console.log(xmlhttp.responseText)
+            }
+        - lang: Shell
+          source: |
+            #!/bin/sh
+            curl -X GET -H "Authorization: Token 6d24021956eff2c64b54cb659fe373e1adf09d8a" -H "Content-Type:application/json" -H "JSON:application/json;charset=UTF-8" http://127.0.0.1:8000/vibrantminds2/api/sessions/
   '/sessions/{org_id}/filter_organization':
     get:
       tags:
@@ -361,6 +406,21 @@ paths:
               example:
                 schema: null
                 $ref: '#/components/examples/staffs'
+      x-code-samples:
+        - lang: JavaScript
+          source: |
+            var XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
+            var url = "http://127.0.0.1:8000/vibrantminds2/api/staffs/"
+            var xmlhttp = new XMLHttpRequest();
+            xmlhttp.open("GET", url);
+            xmlhttp.send();
+            xmlhttp.onreadystatechange = (e) => {
+                console.log(xmlhttp.responseText)
+            }
+        - lang: Shell
+          source: |
+            #!/bin/sh
+            curl -X GET -H "Authorization: Token 6d24021956eff2c64b54cb659fe373e1adf09d8a" -H "Content-Type:application/json" -H "JSON:application/json;charset=UTF-8" http://127.0.0.1:8000/vibrantminds2/api/staffs/
   '/staffs/{org_id}/filter_organization':
     get:
       tags:
