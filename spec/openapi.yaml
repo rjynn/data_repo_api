@@ -8,7 +8,7 @@ info:
     name: Apache 2.0
     url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
   x-logo:
-    url: '/logo.png'
+    url: 'https://rjynn.github.io/data_repo_api/web/logo.png'
   description: >
     This documentation describes the basic APIs of the Data Repository (PACSLAC-II version)
 
