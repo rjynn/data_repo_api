@@ -185,7 +185,7 @@
         "x-code-samples": [
           {
             "lang": "JavaScript",
-            "source": "var test;"
+            "source": "var XMLHttpRequest = require(\"xmlhttprequest\").XMLHttpRequest;\nvar url = \"http://127.0.0.1:8000/vibrantminds2/api/sessions/\"\nvar xmlhttp = new XMLHttpRequest();\nxmlhttp.open(\"GET\", url);\nxmlhttp.send();\nxmlhttp.onreadystatechange = (e) => {\n    console.log(xmlhttp.responseText)\n}\n"
           },
           {
             "lang": "Shell",
