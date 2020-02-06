@@ -1,0 +1,19 @@
+get:
+  tags:
+    - Staffs
+  summary: List all Staff Members
+  security:
+    - token: [6d24021956eff2c64b54cb659fe373e1adf09d8a]
+  description: |
+    Retrieve all Staff Members in the data repository
+  operationId: getStaffList
+  responses:
+    '200':
+      description: Success
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Staffs'
+          example:
+            schema:
+            $ref: '#/components/examples/staffs'

@@ -1,0 +1,17 @@
+[
+    {
+        "is_staff": true,
+        "staff_info": {
+            "firstname": "Staff",
+            "lastname": "Test1",
+            "organizations": [
+                4
+            ],
+            "email": "test@test.com",
+            "extra_info": "",
+            "gender": "M"
+        },
+        "username": "staff_1",
+        "id": 3
+    }
+]

@@ -1,0 +1,52 @@
+type: object
+properties:
+  is_organization:
+    description: Boolean if object is a staff
+    type: boolean
+    minLength: 1
+    example: true
+  staff_info:
+    description: JSON Object with information about the staff
+    type: JSON
+    minLength: 1
+    example: none
+  staff_info-firstname:
+    description: Staff Member's Firstname
+    type: String
+    minLength: 1
+    example: none
+  staff_info-lastname:
+    description: Staff Member's Lastname
+    type: String
+    minLength: 1
+    example: none
+  staff_info-organizations:
+    description: List of Organization IDs the staff is a member of
+    type: List of Integers
+    minLength: 1
+    example: none
+  staff_info-email:
+    description: Staff Member's Email
+    type: String
+    minLength: 1
+    example: none
+  staff_info-extra_info:
+    description: Staff Member's Extra Info
+    type: JSON
+    minLength: 1
+    example: none
+  staff_info-gender:
+    description: Staff Member's Gender - Male, Female or Other
+    type: String
+    minLength: 1
+    example: none
+  username:
+    description: Username for Staff log-in
+    type: string
+    minLength: 1
+    example: Smith
+  id:
+    description: ID of Staff
+    type: int
+    minLength: 1
+    example: 3

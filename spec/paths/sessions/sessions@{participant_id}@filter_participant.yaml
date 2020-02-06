@@ -1,0 +1,21 @@
+get:
+  tags:
+    - Sessions
+  summary: List all Sessions with specific Participant
+  security:
+    - token: [6d24021956eff2c64b54cb659fe373e1adf09d8a]
+  description: |
+    Retrieve all sessions in the data repository associated with a specified participant ID
+  operationId: getSessionPart
+  responses:
+    '200':
+      description: Success
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Sessions'
+          example:
+              schema:
+              $ref: '#/components/examples/sessions'
+    '400':
+      description: No sessions associated with that participant.

@@ -1,0 +1,62 @@
+type: object
+properties:
+  session_date:
+    description: Date of Session
+    type: Date-Time
+    minLength: 1
+    example: true
+  staff:
+    description: ID of staff supervising or entering session
+    type: String
+    minLength: 1
+    example: none
+  participant:
+    description: ID of participant participating in the session
+    type: String
+    minLength: 1
+    example: none
+  organization:
+    description: ID of organization session is occurring in
+    type: String
+    minLength: 1
+    example: none
+  score:
+    description: Score of session (This can mean many different things depending on app)
+    type: Integer
+    minLength: 1
+    example: none
+  session_info:
+    description: JSON object of information about the session
+    type: JSON
+    minLength: 1
+    example: none
+  session_info-admission:
+    description: Boolean if this session occurred during admission of participant to hospital/resident
+    type: Boolean
+    minLength: 1
+    example: none
+  session_info-severe:
+    description: Boolean if this session was marked as the participant suspected as having severe pain
+    type: Boolean
+    minLength: 1
+    example: none
+  session_info-activity:
+    description: The activity that was being completed during this session
+    type: String
+    minLength: 1
+    example: none
+  settings:
+    description: Settings of the session
+    type: JSON
+    minLength: 0
+    example: Smith
+  events:
+    description: Array of event IDs associated with this session
+    type: Array
+    minLength: 1
+    example: Smith
+  id:
+    description: ID of Session
+    type: int
+    minLength: 1
+    example: 3

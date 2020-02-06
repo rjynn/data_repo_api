@@ -1,0 +1,57 @@
+type: object
+properties:
+  is_participant:
+    description: Boolean if object is a participant
+    type: boolean
+    minLength: 1
+    example: true
+  participant_info:
+    description: JSON Object with information about the participant
+    type: JSON
+    minLength: 1
+    example: none
+  participant_info-firstname:
+    description: Participant's first name
+    type: List of Integers
+    minLength: 1
+    example: none
+  participant_info-lastname:
+    description: Participant's last name
+    type: String
+    minLength: 1
+    example: none
+  participant_info-extra_info:
+    description: Participants Extra Info
+    type: JSON
+    minLength: 1
+    example: none
+  participant_info-dob:
+    description: Participant's Date of Birth
+    type: Date-Time
+    minLength: 1
+    example: none
+  participant_info-organizations:
+    description: Array of Organization IDs the Participant is a part of
+    type: Array
+    minLength: 1
+    example: none
+  participant_info-email:
+    description: Participant's email
+    type: String
+    minLength: 1
+    example: none
+  participant_info-gender:
+    description: Participant's Gender - Male, Female or Other
+    type: String
+    minLength: 1
+    example: none
+  username:
+    description: Username for Participant log-in
+    type: string
+    minLength: 1
+    example: Smith
+  id:
+    description: ID of Participant
+    type: int
+    minLength: 1
+    example: 3

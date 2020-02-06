@@ -1,0 +1,50 @@
+[
+    {
+        "is_participant": true,
+        "participant_info": {
+            "firstname": "Player",
+            "lastname": "Test1",
+            "dob": "1960-11-12",
+            "email": "test@test.com",
+            "organizations": [
+                4
+            ],
+            "gender": "F",
+            "extra_info": ""
+        },
+        "username": "player_1",
+        "id": 2
+    },
+    {
+        "is_participant": true,
+        "participant_info": {
+            "firstname": "Participant",
+            "lastname": "Test2",
+            "dob": "1920-10-11",
+            "email": "test@test.com",
+            "organizations": [
+                4
+            ],
+            "gender": "F",
+            "extra_info": ""
+        },
+        "username": "participant_2",
+        "id": 6
+    },
+    {
+        "is_participant": true,
+        "participant_info": {
+            "firstname": "Participant",
+            "lastname": "Test3",
+            "dob": "1922-12-11",
+            "email": "rtest@gmail.com",
+            "organizations": [
+                4
+            ],
+            "gender": "O",
+            "extra_info": ""
+        },
+        "username": "participant_3",
+        "id": 7
+    }
+]

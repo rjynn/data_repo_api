@@ -1,0 +1,21 @@
+get:
+  tags:
+    - Events
+  summary: Get Event info
+  security:
+    - token: [6d24021956eff2c64b54cb659fe373e1adf09d8a]
+  description: |
+    Retrieve event in the data repository associated with a specified event ID
+  operationId: getEvent
+  responses:
+    '200':
+      description: Success
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Events'
+          example:
+              schema:
+              $ref: '#/components/examples/events_filterid'
+    '400':
+      description: No event associated with that Event ID.              

@@ -1,0 +1,19 @@
+get:
+  tags:
+    - Organizations
+  summary: List all Organizations
+  security:
+    - token: [6d24021956eff2c64b54cb659fe373e1adf09d8a]
+  description: |
+    Retrieve all organizations in the data repository
+  operationId: getOrganizationList
+  responses:
+    '200':
+      description: Success
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Organization'
+          example:
+            schema:
+            $ref: '#/components/examples/Org'

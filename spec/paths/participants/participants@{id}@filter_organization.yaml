@@ -1,0 +1,20 @@
+get:
+  tags:
+    - Participants
+  summary: List Participants in an Organization
+  security:
+    - token: [6d24021956eff2c64b54cb659fe373e1adf09d8a]
+  description: |
+    Retrieve all participants associated with a specified organization
+  responses:
+    '200':
+      description: Success
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Participants'
+          example:
+            schema:
+            $ref: '#/components/examples/participants'
+    '400':
+      description: No Participant associated with that organization.

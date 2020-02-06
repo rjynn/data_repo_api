@@ -1,0 +1,19 @@
+  get:
+    tags:
+      - Participants
+    summary: List all Participants
+    security:
+      - token: [6d24021956eff2c64b54cb659fe373e1adf09d8a]
+    description: |
+      Retrieve all Participants in the data repository
+    operationId: getParticipantList
+    responses:
+      '200':
+        description: Success
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Participants'
+            example:
+              schema:
+              $ref: '#/components/examples/participants'

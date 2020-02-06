@@ -1,0 +1,21 @@
+get:
+  tags:
+    - Participants
+  summary: Get Participant
+  security:
+    - token: [6d24021956eff2c64b54cb659fe373e1adf09d8a]
+  description: |
+    Retrieve a specified participant's information 
+  operationId: getParticipant
+  responses:
+    '200':
+      description: Success
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Participants'
+          example:
+            schema:
+            $ref: '#/components/examples/participants_filterid'
+    '400':
+      description: No Participant associated with that ID.
