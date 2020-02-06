@@ -18,7 +18,7 @@ info:
 
     For each **Session**, there is a **Staff** who is supervising the **Activity**, a **Participant** that is completing the **Activity** and the associated **Organization** that the **Activity** is occurring in. The **Session** includes information about the  **Activity** and **Events** occur in the **Session**. **Sessions** can have more than one **Event** (although in PACSLAC, each **Session** only has one **Event**). These **Events** include more detailed information about what is occuring in the **Session**.
 
-    ![alt text](https://rjynn.github.io/data_repo_api/web//class2.png)
+    ![alt text](https://rjynn.github.io/data_repo_api/web/class2.png)
 tags:
   - name: Organizations
     description: 'A User Model for an **Organization** in the Data Repository. Organizations can be anything that has groups of staff and participants. It can be a hospital, university or organization. Staff members can create organizations and add other staff members and participants to it. Activities are associated with organizations that can be completed by participants and will be saved in a session in the organization for that activity.'
