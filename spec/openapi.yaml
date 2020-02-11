@@ -11,6 +11,10 @@ info:
     url: 'https://rjynn.github.io/data_repo_api/web/logo.png'
   description: >
     This documentation describes the basic APIs of the Data Repository (PACSLAC-II version)
+    
+
+    **NOTE:: All APIs are Paginated** 
+    (Example - http://142.244.87.239:8081/vibrantminds2/api/sessions/?offset=200)
 
     # Introduction
 
@@ -53,4 +57,4 @@ tags:
     description: Events occur in a session. It can be an entry of playing another level in the same session, any movements that occur in a session, etc.
         Events include specific information about the app being used.
 servers:
-  - url: '/vibrantminds2/api/'
+  - url: 'http://142.244.87.239:8081/vibrantminds2/api/'
