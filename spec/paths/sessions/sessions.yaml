@@ -21,3 +21,37 @@ get:
           example:
               schema:
               $ref: '#/components/examples/sessions'
+post:
+  tags:
+    - Sessions
+  summary: Creates a Session
+  description: Creates a session with specified staff, participant, organization, score, session info and settings
+  operationId: echo
+  security:
+    - token: [6d24021956eff2c64b54cb659fe373e1adf09d8a]
+  responses:
+    '200':
+      description: OK
+      headers:
+        X-Rate-Limit:
+          description: calls per hour allowed by the user
+          schema:
+            type: integer
+            format: int32
+        X-Expires-After:
+          $ref: '#/components/headers/ExpiresAfter'
+      content:
+        application/json:
+          schema:
+            type: string
+          examples:
+            response:
+              value: Hello world!
+  requestBody:
+    content:
+      application/json:
+        schema:
+          type: string
+          example: Hello world!
+    description: Echo payload
+    required: true
