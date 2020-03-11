@@ -1040,6 +1040,65 @@
           }
         }
       }
+    },
+    "/token_login": {
+      "post": {
+        "tags": [
+          "Token"
+        ],
+        "summary": "Retrieves token for login",
+        "description": "Retrieves info about user and token for future HTTP requests",
+        "operationId": "PostTokenLogin",
+        "security": [
+          {
+            "basic_auth": [
+              "username:test password:test"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TokenPostRequest"
+                },
+                "example": {
+                  "schema": null,
+                  "$ref": "#/components/examples/token_postresponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "example": {
+                  "schema": null,
+                  "$ref": "#/components/examples/token_postbadresponse"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TokenPostRequest"
+              }
+            }
+          }
+        },
+        "x-code-samples": [
+          {
+            "lang": "Shell",
+            "source": "#!/bin/sh\ncurl -X POST -H \"Content-Type:application/json\" -d '{\"username\":\"uofa1\", \"password\":\"123test12ss3\"}' http://127.0.0.1:8000/vibrantminds2/api/token_login"
+          }
+        ]
+      }
     }
   },
   "components": {
@@ -1541,6 +1600,23 @@
           }
         }
       },
+      "TokenPostRequest": {
+        "type": "object",
+        "properties": {
+          "username": {
+            "description": "Username for log-in",
+            "type": "string",
+            "minLength": 1,
+            "example": "uofa"
+          },
+          "password": {
+            "description": "Password for log-in",
+            "type": "string",
+            "minLength": 1,
+            "example": "Passw0rd"
+          }
+        }
+      },
       "User": {
         "type": "object",
         "properties": {
@@ -1880,7 +1956,27 @@
           "username": "staff_2",
           "id": 5
         }
-      ]
+      ],
+      "token_postbadresponse": {
+        "non_field_errors": [
+          "Unable to log in with provided credentials."
+        ]
+      },
+      "token_postresponse": {
+        "token": "2176d26128e5a4d5af357789e586712280cd23fe",
+        "user": {
+          "is_organization": true,
+          "organization_info": {
+            "organization_name": "UofA",
+            "description": "The University of Alberta",
+            "startdate": "2020-03-11T10:56:11.026730Z",
+            "extra_info": "{\"city\": \"Winnipeg\", \"province\": \"Manitoba\", \"location_address\": \"2300 McPhillips St, Winnipeg, MB R2V 3M3\"}",
+            "activities": []
+          },
+          "username": "uofa1",
+          "id": 119
+        }
+      }
     },
     "headers": {
       "ExpiresAfter": {
@@ -1892,6 +1988,10 @@
       }
     },
     "securitySchemes": {
+      "basic_auth": {
+        "type": "http",
+        "scheme": "basic"
+      },
       "token": {
         "type": "token",
         "in": "header",
