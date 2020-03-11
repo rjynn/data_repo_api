@@ -1,0 +1,32 @@
+type: object
+properties:
+  staff:
+    description: ID of staff supervising or entering session
+    type: Integer
+    minLength: 1
+    example: 61
+  participant:
+    description: ID of participant participating in the session
+    type: Integer
+    minLength: 1
+    example: 19
+  organization:
+    description: ID of organization session is occurring in
+    type: Integer
+    minLength: 1
+    example: 39
+  score:
+    description: Score of session (This can mean many different things depending on app)
+    type: Integer
+    minLength: 1
+    example: 14
+  session_info:
+    description: JSON object of information about the session
+    type: JSON String
+    minLength: 0
+    example: "{\"test\":\"test\"}"
+  settings:
+    description: Settings of the session
+    type: JSON String
+    minLength: 0
+    example: "{\"test\":\"test\"}"

@@ -6,7 +6,7 @@ get:
     - token: [6d24021956eff2c64b54cb659fe373e1adf09d8a]
   description: |
     Retrieve all events in the data repository associated with a specified session
-  operationId: getOrganizationList
+  operationId: getEventSessionList
   responses:
     '200':
       description: Success

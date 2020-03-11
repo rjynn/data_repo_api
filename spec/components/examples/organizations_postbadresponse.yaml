@@ -1,0 +1,10 @@
+{
+    "organization_info": {
+        "organization_name": [
+            "This field may not be blank."
+        ]
+    },
+    "username": [
+        "This field may not be blank."
+    ]
+}

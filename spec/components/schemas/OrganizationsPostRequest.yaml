@@ -1,0 +1,26 @@
+type: object
+properties:
+  is_organization:
+    description: Boolean if object is an organization
+    type: boolean
+    minLength: 1
+    example: true
+  username:
+    description: Username for Organization log-in
+    type: string
+    minLength: 1
+    example: Smith
+  password:
+    description: Password for Organization login/token
+    type: string
+    minLength: 1
+    example: testing
+  organization_info:
+    description: JSON Object with information about the organization
+    type: JSON
+    minLength: 1
+    example: {
+                "organization_name": "Organization Test1",
+                "description": "Test organization 1",
+                "extra_info": "{\"city\":\"Edmonton\", \"province\":\"Alberta\", \"location_address\":\"10230 111 Ave NW, Edmonton, AB T5G 0B7\"}",
+            }

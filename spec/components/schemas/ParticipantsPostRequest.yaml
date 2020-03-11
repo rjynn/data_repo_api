@@ -1,0 +1,29 @@
+type: object
+properties:
+  is_participant:
+    description: Boolean if object is a participant (MUST be true)
+    type: boolean
+    minLength: 1
+    example: true
+  participant_info:
+    description: JSON Object with information about the participant
+    type: JSON
+    minLength: 1
+    example: {
+                "firstname": "Player",
+                "lastname": "Test1",
+                "dob": "1960-11-12",
+                "email": "test@test.com",
+                "gender": "F",
+                "extra_info": ""
+            }
+  username:
+    description: Username for Participant login/token
+    type: string
+    minLength: 1
+    example: usertest
+  password:
+    description: Password for Participant login/token
+    type: string
+    minLength: 1
+    example: testing

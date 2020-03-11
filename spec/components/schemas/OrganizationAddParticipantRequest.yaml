@@ -1,0 +1,7 @@
+type: object
+properties:
+  participant_id:
+    description: ID of participant
+    type: string
+    minLength: 1
+    example: 3

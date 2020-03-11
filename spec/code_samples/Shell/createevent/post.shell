@@ -1,0 +1,2 @@
+#!/bin/sh
+curl -X POST -H "Authorization: Token 154a68a310df90c4d604185fed7850157f461993" -H "Content-Type:application/json" -d '{"organization_id":39,"session_id":1, "event":"test", "score": 12}' http://127.0.0.1:8000/vibrantminds2/api/createevent

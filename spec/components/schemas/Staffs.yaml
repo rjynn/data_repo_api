@@ -1,6 +1,6 @@
 type: object
 properties:
-  is_organization:
+  is_staff:
     description: Boolean if object is a staff
     type: boolean
     minLength: 1

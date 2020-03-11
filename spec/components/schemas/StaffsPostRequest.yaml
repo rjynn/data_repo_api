@@ -1,0 +1,28 @@
+type: object
+properties:
+  is_staff:
+    description: Boolean if object is a staff (MUST be true)
+    type: boolean
+    minLength: 1
+    example: true
+  staff_info:
+    description: JSON Object with information about the staff
+    type: JSON
+    minLength: 1
+    example: {
+                "firstname": "TestFirstName",
+                "lastname": "TestLastName",
+                "email": "tree@gmail.com",
+                "extra_info": "",
+                "gender": "F"
+            }
+  username:
+    description: Username for Staff log-in
+    type: string
+    minLength: 1
+    example: Smith
+  password:
+    description: Password for Staff log-in/token
+    type: string
+    minLength: 1
+    example: passw0rdT3st
