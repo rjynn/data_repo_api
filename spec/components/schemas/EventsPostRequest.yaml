@@ -1,0 +1,22 @@
+type: object
+properties:
+  organization_id:
+    description: ID of organization where event is occuring
+    type: integer
+    minLength: 1
+    example: true
+  session_id:
+    description: ID of session where event is occurring
+    type: integer
+    minLength: 1
+    example: 12
+  event:
+    description: JSON String of event
+    type: JSON string
+    minLength: 1
+    example: "{\"Grimacing\":true,\"Sad look\":false,\"Tighter Face\":false,\"Dirty Look \":false,\"Change in Eyes\\n(Squinting, dull, bright, increased eye\\nmovements)\":true,\"Frowning\":false,\"Pain Expression\":false,\"Grim Face\":true}"
+  score:
+    description: Score of Event
+    type: Integer
+    minLength: 0
+    example: 0

@@ -1,0 +1,2 @@
+#!/bin/sh
+curl -X POST -H "Content-Type:application/json" -d '{"is_participant": true, "password": "passtest", "participant_info": {"firstname": "TestFirstName", "lastname": "TestingLastName", "dob": "1999-01-01", "email": "rdtest@gmail.com", "gender": "F", "extra_info": ""}, "username": "participant1"}' http://127.0.0.1:8000/vibrantminds2/api/participants/

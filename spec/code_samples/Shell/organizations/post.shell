@@ -1,0 +1,2 @@
+#!/bin/sh
+curl -X POST -H "Content-Type:application/json" -d '{"is_organization": true,3", "organization_info": {"organization_name": "UofA","description": "The University of Alberta","extra_info": "{\"city\": \"Winnipeg\", \"province\": \"Manitoba\", \"location_address\": \"2300 McPhillips St, Winnipeg, MB R2V 3M3\"}"}}' http://127.0.0.1:8000/vibrantminds2/api/organizations/

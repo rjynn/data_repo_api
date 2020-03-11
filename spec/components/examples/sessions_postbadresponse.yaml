@@ -1,0 +1,14 @@
+{
+    "staff": [
+        "This field may not be null."
+    ],
+    "participant": [
+        "This field may not be null."
+    ],
+    "organization": [
+        "Invalid pk \"392\" - object does not exist."
+    ],
+    "score": [
+        "This field may not be null."
+    ]
+}

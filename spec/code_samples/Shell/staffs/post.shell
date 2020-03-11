@@ -1,0 +1,2 @@
+#!/bin/sh
+curl -X POST -H "Content-Type:application/json" -d '{"is_staff": true, "password": "testpass", "staff_info": {"firstname": "TestFirst", "lastname": "TestLast", "email": "test@hotmail.com", "extra_info": "", "gender": "M"},"username": "staff11"}' http://127.0.0.1:8000/vibrantminds2/api/staffs/

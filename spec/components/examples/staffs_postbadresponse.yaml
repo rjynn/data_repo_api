@@ -1,0 +1,13 @@
+{
+    "password": [
+        "This field may not be blank."
+    ],
+    "staff_info": {
+        "gender": [
+            "This field may not be null."
+        ]
+    },
+    "username": [
+        "This field may not be blank."
+    ]
+}

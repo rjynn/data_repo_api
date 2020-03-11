@@ -7,17 +7,17 @@ properties:
     example: true
   staff:
     description: ID of staff supervising or entering session
-    type: String
+    type: Integer
     minLength: 1
     example: none
   participant:
     description: ID of participant participating in the session
-    type: String
+    type: Integer
     minLength: 1
     example: none
   organization:
     description: ID of organization session is occurring in
-    type: String
+    type: Integer
     minLength: 1
     example: none
   score:
@@ -27,7 +27,7 @@ properties:
     example: none
   session_info:
     description: JSON object of information about the session
-    type: JSON
+    type: JSON String
     minLength: 1
     example: none
   session_info-admission:
@@ -47,7 +47,7 @@ properties:
     example: none
   settings:
     description: Settings of the session
-    type: JSON
+    type: JSON String
     minLength: 0
     example: Smith
   events:

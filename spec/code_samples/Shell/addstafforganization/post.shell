@@ -1,0 +1,2 @@
+#!/bin/sh
+curl -X POST -H "Authorization: Token 9aa7cbd552c82e0b8a533096d8b5ba1d5af2b756" -H "Content-Type:application/json" -H "JSON:application/json;charset=UTF-8" -d '{"researcher_id":"4"}' http://127.0.0.1:8000/vibrantminds2/api/addresearcherstudy

@@ -17,3 +17,33 @@ get:
           example:
             schema:
             $ref: '#/components/examples/Org'
+post:
+  tags:
+    - Organizations
+  summary: Creates an Organization
+  description: Creates a new Organization
+  operationId: PostOrganization
+  security:
+    - token: [6d24021956eff2c64b54cb659fe373e1adf09d8a]
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/OrganizationsPostRequest'
+          example:
+            schema:
+            $ref: '#/components/examples/organizations_postresponse'
+    '400':
+      description: Bad Request
+      content:
+        application/json:
+          example:
+            schema:
+            $ref: '#/components/examples/organizations_postbadresponse'
+  requestBody:
+    content:
+      application/json:
+        schema:
+          $ref: '#/components/schemas/OrganizationsPostRequest' 
