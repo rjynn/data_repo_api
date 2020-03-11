@@ -1,0 +1,30 @@
+post:
+  tags:
+    - Token
+  summary: Retrieves token for login
+  description: Retrieves info about user and token for future HTTP requests
+  operationId: PostTokenLogin
+  security:
+    - basic_auth: [username:test password:test]
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/TokenPostRequest'
+          example:
+            schema:
+            $ref: '#/components/examples/token_postresponse'
+    '404':
+      description: Bad Request
+      content:
+        application/json:
+          example:
+            schema:
+            $ref: '#/components/examples/token_postbadresponse'
+  requestBody:
+    content:
+      application/json:
+        schema:
+          $ref: '#/components/schemas/TokenPostRequest' 
