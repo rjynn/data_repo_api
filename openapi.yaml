@@ -10,31 +10,61 @@ info:
   x-logo:
     url: 'https://rjynn.github.io/data_repo_api/web/logo.png'
   description: |
-    This documentation describes the basic APIs of the Data Repository (PACSLAC-II version)
+    This documentation describes the basic APIs of the Data Repository (Generalized version)
 
-    **NOTE:: All APIs are Paginated**  (Example - http://142.244.87.239:8081/vibrantminds2/api/sessions/?offset=200)
+    **NOTE:: All APIs are Paginated**  (Example - http://SERVER_URL/vibrantminds2/api/sessions/?offset=200)
     # Introduction
-    The Data Repository was made to be general enough to be used for multiple applications. For PACSLAC-II the data models include Organizations, Staffs, Participants, Sessions and Events.
+    The Data Repository was made to be general enough to be used for multiple applications. For Generalized versions the data models include Organizations, Staffs, Participants, Sessions and Events.
 
-    **Staff** members can create **Organizations** and invite other **Staff** members or **Participants**. **Sessions** are created when an **Activity** occurs. 
+    **Staff** members can create **Organizations** and invite other **Staff** members or **Participants**. **Sessions** are created when something occurs like an activity that requires data input. 
 
-    For each **Session**, there is a **Staff** who is supervising the **Activity**, a **Participant** that is completing the **Activity** and the associated **Organization** that the **Activity** is occurring in. The **Session** includes information about the  **Activity** and **Events** occur in the **Session**. **Sessions** can have more than one **Event** (although in PACSLAC, each **Session** only has one **Event**). These **Events** include more detailed information about what is occuring in the **Session**.
+    For each **Session**, there is a **Staff** who is supervising the specified activity, a **Participant** that is completing the activity and the associated **Organization** that the activity is occurring in. The **Session** includes information about the  **Activity** and **Events** occur in the **Session**. **Sessions** can have more than one **Event**. These **Events** include more detailed information about what is occuring in the **Session**.
 
     ![alt text](https://rjynn.github.io/data_repo_api/web/class2.png)
 tags:
   - name: Organizations
-    description: 'A User Model for an **Organization** in the Data Repository. Organizations can be anything that has groups of staff and participants. It can be a hospital, university or organization. Staff members can create organizations and add other staff members and participants to it. Activities are associated with organizations that can be completed by participants and will be saved in a session in the organization for that activity.'
+    description: 'A User Model for an **Organization** in the Data Repository. Organizations can be anything that has groups of staff and participants. It can be a hospital, university or organization. Staff members can create organizations and add other staff members and participants to it.'
   - name: Staffs
     description: 'A User Model for a **Staff** member in the Data Repository. Staff Members can be Researchers, Nurses and Doctors. Staff members supervise research sessions and submit survey sessions into the Data Repository.'
   - name: Participants
     description: A User Model for a **Participants** in the Data Repository. Participants are users of interest in the Organization. Participants take part in research studies and can be patients that surveys are completed for.
   - name: Sessions
-    description: 'Sessions are the main interest of the Data Repository. Sessions can be sessions in which a participant completes a game, a session where a participant is observed for pain, etc. It includes specific information about the app being used.'
+    description: 'Sessions are the main interest of the Data Repository. Sessions can be sessions in which a participant completes a game, a session where a participant is observed for pain, etc., or anything that requires data input. It includes specific information about the app being used.'
   - name: Events
     description: 'Events occur in a session. It can be an entry of playing another level in the same session, any movements that occur in a session, etc. Events include specific information about the app being used.'
 servers:
-  - url: 'http://142.244.87.239:8081/vibrantminds2/api/'
+  - url: 'http://SERVER_URL/vibrantminds2/api/'
 paths:
+  /createevent:
+    post:
+      tags:
+        - Events
+      summary: Creates an Event
+      description: Creates a new Event for specified Session
+      operationId: PostEvent
+      security:
+        - token:
+            - 6d24021956eff2c64b54cb659fe373e1adf09d8a
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EventsPostRequest'
+              example:
+                schema: null
+                $ref: '#/components/examples/events_postresponse'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EventsPostRequest'
+      x-code-samples:
+        - lang: Shell
+          source: |-
+            #!/bin/sh
+            curl -X POST -H "Authorization: Token 154a68a310df90c4d604185fed7850157f461993" -H "Content-Type:application/json" -d '{"organization_id":39,"session_id":1, "event":"test", "score": 12}' http://127.0.0.1:8000/vibrantminds2/api/createevent
   /events:
     get:
       tags:
@@ -45,7 +75,7 @@ paths:
             - 6d24021956eff2c64b54cb659fe373e1adf09d8a
       description: |
         Retrieve all events in the data repository
-      operationId: getOrganizationList
+      operationId: getEventsList
       responses:
         '200':
           description: Success
@@ -62,7 +92,7 @@ paths:
         - lang: JavaScript
           source: |
             var XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
-            var url = "http://127.0.0.1:8000/vibrantminds2/api/events/"
+            var url = "https://vibrant-minds.org/vibrantminds2/api/events/"
             var xmlhttp = new XMLHttpRequest();
             xmlhttp.open("GET", url);
             xmlhttp.send();
@@ -106,7 +136,7 @@ paths:
             - 6d24021956eff2c64b54cb659fe373e1adf09d8a
       description: |
         Retrieve all events in the data repository associated with a specified session
-      operationId: getOrganizationList
+      operationId: getEventSessionList
       responses:
         '200':
           description: Success
@@ -119,6 +149,68 @@ paths:
                 $ref: '#/components/examples/events'
         '400':
           description: No events associated with that session.
+  /addparticipantorganization:
+    post:
+      tags:
+        - Organizations
+      summary: Add Participant to Organization
+      operationId: addParticipantOrg
+      security:
+        - token:
+            - 6d24021956eff2c64b54cb659fe373e1adf09d8a
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrganizationAddParticipantRequest'
+              example:
+                schema: null
+                $ref: '#/components/examples/orgaddpart_postresponse'
+        '201':
+          description: Participant already a part of that organization.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OrganizationAddParticipantRequest'
+      x-code-samples:
+        - lang: Shell
+          source: |
+            #!/bin/sh
+            curl -X POST -H "Authorization: Token 9aa7cbd552c82e0b8a533096d8b5ba1d5af2b756" -H "Content-Type:application/json" -H "JSON:application/json;charset=UTF-8" -d '{"researcher_id":"4"}' http://127.0.0.1:8000/vibrantminds2/api/addresearcherstudy
+  /addstafforganization:
+    post:
+      tags:
+        - Organizations
+      summary: Add Staff to Organization
+      operationId: addStaffOrg
+      security:
+        - token:
+            - 6d24021956eff2c64b54cb659fe373e1adf09d8a
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrganizationAddStaffRequest'
+              example:
+                schema: null
+                $ref: '#/components/examples/orgaddpart_postresponse'
+        '201':
+          description: Staff already a part of that organization.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OrganizationAddStaffRequest'
+      x-code-samples:
+        - lang: Shell
+          source: |
+            #!/bin/sh
+            curl -X POST -H "Authorization: Token 9aa7cbd552c82e0b8a533096d8b5ba1d5af2b756" -H "Content-Type:application/json" -H "JSON:application/json;charset=UTF-8" -d '{"researcher_id":"4"}' http://127.0.0.1:8000/vibrantminds2/api/addresearcherstudy
   /organizations:
     get:
       tags:
@@ -155,6 +247,42 @@ paths:
           source: |
             #!/bin/sh
             curl -X GET -H "Authorization: Token 6d24021956eff2c64b54cb659fe373e1adf09d8a" -H "Content-Type:application/json" -H "JSON:application/json;charset=UTF-8" http://127.0.0.1:8000/vibrantminds2/api/organizations/
+    post:
+      tags:
+        - Organizations
+      summary: Creates an Organization
+      description: Creates a new Organization
+      operationId: PostOrganization
+      security:
+        - token:
+            - 6d24021956eff2c64b54cb659fe373e1adf09d8a
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrganizationsPostRequest'
+              example:
+                schema: null
+                $ref: '#/components/examples/organizations_postresponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              example:
+                schema: null
+                $ref: '#/components/examples/organizations_postbadresponse'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OrganizationsPostRequest'
+      x-code-samples:
+        - lang: Shell
+          source: |-
+            #!/bin/sh
+            curl -X POST -H "Content-Type:application/json" -d '{"is_organization": true,3", "organization_info": {"organization_name": "UofA","description": "The University of Alberta","extra_info": "{\"city\": \"Winnipeg\", \"province\": \"Manitoba\", \"location_address\": \"2300 McPhillips St, Winnipeg, MB R2V 3M3\"}"}}' http://127.0.0.1:8000/vibrantminds2/api/organizations/
   '/organizations/{id}/filter_id':
     get:
       tags:
@@ -214,6 +342,42 @@ paths:
           source: |
             #!/bin/sh
             curl -X GET -H "Authorization: Token 6d24021956eff2c64b54cb659fe373e1adf09d8a" -H "Content-Type:application/json" -H "JSON:application/json;charset=UTF-8" http://127.0.0.1:8000/vibrantminds2/api/participants/
+    post:
+      tags:
+        - Participants
+      summary: Creates a Participant member
+      description: Creates a new Participant member
+      operationId: PostParticipant
+      security:
+        - token:
+            - 6d24021956eff2c64b54cb659fe373e1adf09d8a
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ParticipantsPostRequest'
+              example:
+                schema: null
+                $ref: '#/components/examples/participants_postresponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              example:
+                schema: null
+                $ref: '#/components/examples/participants_postbadresponse'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ParticipantsPostRequest'
+      x-code-samples:
+        - lang: Shell
+          source: |-
+            #!/bin/sh
+            curl -X POST -H "Content-Type:application/json" -d '{"is_participant": true, "password": "passtest", "participant_info": {"firstname": "TestFirstName", "lastname": "TestingLastName", "dob": "1999-01-01", "email": "rdtest@gmail.com", "gender": "F", "extra_info": ""}, "username": "participant1"}' http://127.0.0.1:8000/vibrantminds2/api/participants/
   '/participants/{id}/filter_id':
     get:
       tags:
@@ -299,6 +463,52 @@ paths:
           source: |
             #!/bin/sh
             curl -X GET -H "Authorization: Token 6d24021956eff2c64b54cb659fe373e1adf09d8a" -H "Content-Type:application/json" -H "JSON:application/json;charset=UTF-8" http://127.0.0.1:8000/vibrantminds2/api/sessions/
+    post:
+      tags:
+        - Sessions
+      summary: Creates a Session
+      description: 'Creates a session with specified staff, participant, organization, score, session info and settings'
+      operationId: PostSession
+      security:
+        - token:
+            - 6d24021956eff2c64b54cb659fe373e1adf09d8a
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SessionsPostRequest'
+              example:
+                schema: null
+                $ref: '#/components/examples/sessions_postresponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              example:
+                schema: null
+                $ref: '#/components/examples/sessions_postbadresponse'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SessionsPostRequest'
+      x-code-samples:
+        - lang: JavaScript
+          source: |
+            var XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
+            var url = "http://127.0.0.1:8000/vibrantminds2/api/sessions/"
+            var xmlhttp = new XMLHttpRequest();
+            xmlhttp.open("POST", url);
+            xmlhttp.send();
+            xmlhttp.onreadystatechange = (e) => {
+                console.log(xmlhttp.responseText)
+            }
+        - lang: Shell
+          source: |-
+            #!/bin/sh
+            curl -X POST -H "Content-Type:application/json" -d '{"staff":3, "participant":19, "organization":39, "score":11, "session_info":"{\"test\":\"test\"}", "settings":""}' http://127.0.0.1:8000/vibrantminds2/api/sessions/
   '/sessions/{org_id}/filter_organization':
     get:
       tags:
@@ -427,6 +637,42 @@ paths:
           source: |
             #!/bin/sh
             curl -X GET -H "Authorization: Token 6d24021956eff2c64b54cb659fe373e1adf09d8a" -H "Content-Type:application/json" -H "JSON:application/json;charset=UTF-8" http://127.0.0.1:8000/vibrantminds2/api/staffs/
+    post:
+      tags:
+        - Staffs
+      summary: Creates a Staff member
+      description: Creates a new Staff member
+      operationId: PostStaff
+      security:
+        - token:
+            - 6d24021956eff2c64b54cb659fe373e1adf09d8a
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StaffsPostRequest'
+              example:
+                schema: null
+                $ref: '#/components/examples/staffs_postresponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              example:
+                schema: null
+                $ref: '#/components/examples/staffs_postbadresponse'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StaffsPostRequest'
+      x-code-samples:
+        - lang: Shell
+          source: |-
+            #!/bin/sh
+            curl -X POST -H "Content-Type:application/json" -d '{"is_staff": true, "password": "testpass", "staff_info": {"firstname": "TestFirst", "lastname": "TestLast", "email": "test@hotmail.com", "extra_info": "", "gender": "M"},"username": "staff11"}' http://127.0.0.1:8000/vibrantminds2/api/staffs/
   '/staffs/{org_id}/filter_organization':
     get:
       tags:
@@ -473,6 +719,43 @@ paths:
                 $ref: '#/components/examples/staffs_filterid'
         '400':
           description: No staff associated with that ID.
+  /token_login:
+    post:
+      tags:
+        - Token
+      summary: Retrieves token for login
+      description: Retrieves info about user and token for future HTTP requests
+      operationId: PostTokenLogin
+      security:
+        - basic_auth:
+            - 'username:test password:test'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TokenPostRequest'
+              example:
+                schema: null
+                $ref: '#/components/examples/token_postresponse'
+        '404':
+          description: Bad Request
+          content:
+            application/json:
+              example:
+                schema: null
+                $ref: '#/components/examples/token_postbadresponse'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TokenPostRequest'
+      x-code-samples:
+        - lang: Shell
+          source: |-
+            #!/bin/sh
+            curl -X POST -H "Content-Type:application/json" -d '{"username":"uofa1", "password":"123test12ss3"}' http://127.0.0.1:8000/vibrantminds2/api/token_login
 components:
   schemas:
     Email:
@@ -503,6 +786,29 @@ components:
           type: int
           minLength: 1
           example: 3
+    EventsPostRequest:
+      type: object
+      properties:
+        organization_id:
+          description: ID of organization where event is occuring
+          type: integer
+          minLength: 1
+          example: true
+        session_id:
+          description: ID of session where event is occurring
+          type: integer
+          minLength: 1
+          example: 12
+        event:
+          description: JSON String of event
+          type: JSON string
+          minLength: 1
+          example: '{"Grimacing":true,"Sad look":false,"Tighter Face":false,"Dirty Look ":false,"Change in Eyes\n(Squinting, dull, bright, increased eye\nmovements)":true,"Frowning":false,"Pain Expression":false,"Grim Face":true}'
+        score:
+          description: Score of Event
+          type: Integer
+          minLength: 0
+          example: 0
     Organization:
       type: object
       properties:
@@ -546,6 +852,48 @@ components:
           type: int
           minLength: 1
           example: 3
+    OrganizationAddParticipantRequest:
+      type: object
+      properties:
+        participant_id:
+          description: ID of participant
+          type: string
+          minLength: 1
+          example: 3
+    OrganizationAddStaffRequest:
+      type: object
+      properties:
+        staff_id:
+          description: ID of Staff
+          type: string
+          minLength: 1
+          example: 3
+    OrganizationsPostRequest:
+      type: object
+      properties:
+        is_organization:
+          description: Boolean if object is an organization
+          type: boolean
+          minLength: 1
+          example: true
+        username:
+          description: Username for Organization log-in
+          type: string
+          minLength: 1
+          example: Smith
+        password:
+          description: Password for Organization login/token
+          type: string
+          minLength: 1
+          example: testing
+        organization_info:
+          description: JSON Object with information about the organization
+          type: JSON
+          minLength: 1
+          example:
+            organization_name: Organization Test1
+            description: Test organization 1
+            extra_info: '{"city":"Edmonton", "province":"Alberta", "location_address":"10230 111 Ave NW, Edmonton, AB T5G 0B7"}'
     Participants:
       type: object
       properties:
@@ -604,6 +952,35 @@ components:
           type: int
           minLength: 1
           example: 3
+    ParticipantsPostRequest:
+      type: object
+      properties:
+        is_participant:
+          description: Boolean if object is a participant (MUST be true)
+          type: boolean
+          minLength: 1
+          example: true
+        participant_info:
+          description: JSON Object with information about the participant
+          type: JSON
+          minLength: 1
+          example:
+            firstname: Player
+            lastname: Test1
+            dob: '1960-11-12'
+            email: test@test.com
+            gender: F
+            extra_info: ''
+        username:
+          description: Username for Participant login/token
+          type: string
+          minLength: 1
+          example: usertest
+        password:
+          description: Password for Participant login/token
+          type: string
+          minLength: 1
+          example: testing
     Sessions:
       type: object
       properties:
@@ -614,17 +991,17 @@ components:
           example: true
         staff:
           description: ID of staff supervising or entering session
-          type: String
+          type: Integer
           minLength: 1
           example: none
         participant:
           description: ID of participant participating in the session
-          type: String
+          type: Integer
           minLength: 1
           example: none
         organization:
           description: ID of organization session is occurring in
-          type: String
+          type: Integer
           minLength: 1
           example: none
         score:
@@ -634,7 +1011,7 @@ components:
           example: none
         session_info:
           description: JSON object of information about the session
-          type: JSON
+          type: JSON String
           minLength: 1
           example: none
         session_info-admission:
@@ -654,7 +1031,7 @@ components:
           example: none
         settings:
           description: Settings of the session
-          type: JSON
+          type: JSON String
           minLength: 0
           example: Smith
         events:
@@ -667,10 +1044,43 @@ components:
           type: int
           minLength: 1
           example: 3
+    SessionsPostRequest:
+      type: object
+      properties:
+        staff:
+          description: ID of staff supervising or entering session
+          type: Integer
+          minLength: 1
+          example: 61
+        participant:
+          description: ID of participant participating in the session
+          type: Integer
+          minLength: 1
+          example: 19
+        organization:
+          description: ID of organization session is occurring in
+          type: Integer
+          minLength: 1
+          example: 39
+        score:
+          description: Score of session (This can mean many different things depending on app)
+          type: Integer
+          minLength: 1
+          example: 14
+        session_info:
+          description: JSON object of information about the session
+          type: JSON String
+          minLength: 0
+          example: '{"test":"test"}'
+        settings:
+          description: Settings of the session
+          type: JSON String
+          minLength: 0
+          example: '{"test":"test"}'
     Staffs:
       type: object
       properties:
-        is_organization:
+        is_staff:
           description: Boolean if object is a staff
           type: boolean
           minLength: 1
@@ -720,6 +1130,47 @@ components:
           type: int
           minLength: 1
           example: 3
+    StaffsPostRequest:
+      type: object
+      properties:
+        is_staff:
+          description: Boolean if object is a staff (MUST be true)
+          type: boolean
+          minLength: 1
+          example: true
+        staff_info:
+          description: JSON Object with information about the staff
+          type: JSON
+          minLength: 1
+          example:
+            firstname: TestFirstName
+            lastname: TestLastName
+            email: tree@gmail.com
+            extra_info: ''
+            gender: F
+        username:
+          description: Username for Staff log-in
+          type: string
+          minLength: 1
+          example: Smith
+        password:
+          description: Password for Staff log-in/token
+          type: string
+          minLength: 1
+          example: passw0rdT3st
+    TokenPostRequest:
+      type: object
+      properties:
+        username:
+          description: Username for log-in
+          type: string
+          minLength: 1
+          example: uofa
+        password:
+          description: Password for log-in
+          type: string
+          minLength: 1
+          example: Passw0rd
     User:
       type: object
       properties:
@@ -754,6 +1205,9 @@ components:
         score: 6
         event_date: '2020-02-03T12:00:10Z'
         id: 1
+    events_postresponse:
+      message: Event Created.
+      event_id: 4003
     events:
       - event: '{''Grimacing'': False, ''Sad look'': True, ''Tighter Face'': False, ''Dirty Look '': True, ''Change in Eyes\n(Squinting, dull, bright, increased eye\nmovements)'': False, ''Frowning'': False, ''Pain Expression'': False, ''Grim Face'': True, ''Clenching Teeth'': False, ''Wincing'': False, ''Open Mouth'': False, ''Creasing Forehead'': False, ''Screwing Up Nose'': False, ''Physical Aggression (e.g. pushing people and/or objects, scratching others, hitting others, striking, kicking)'': True, ''Verbal Aggression'': False, ''Not Wanting to be Touched'': False, ''Not Allowing People Near'': False, ''Angry/Mad'': False, ''Throwing Things'': False, ''Increased Confusion'': False, ''Anxious'': False, ''Upset'': False, ''Agitated'': False, ''Cranky/Irritable'': False, ''Frustrated'': False, ''Fidgeting'': False, ''Pulling Away'': False, ''Flinching'': False, ''Restless'': False, ''Pacing'': False, ''Wandering'': False, ''Trying to Leave'': False, ''Refusing to Move'': False, ''Thrashing'': False, ''Decreased Activity'': False, ''Refusing Medications'': False, ''Moving Slow'': False, ''Impulsive Behaviours (Repeat Movements)'': True, ''Uncooperative/Resistance to care'': False, ''Guarding Sore Area'': False, ''Touching/Holding Sore Area'': False, ''Limping'': False, ''Clenching Fist'': False, ''Going into Fetal Position'': False, ''Stiff/Rigid '': False, ''Pale Face'': False, ''Flushed, Red Face'': False, ''Teary Eyed'': False, ''Sweating'': False, ''Shaking/Trembling'': False, ''Cold Clammy'': False, ''Decreased Sleep'': False, ''Increased Sleep During the Day '': False, ''Decreased Appetite'': False, ''Increased Appetite'': False, ''Screaming/Yelling'': False, ''Calling Out (i.e. for help)'': False, ''Crying'': False, ''A Specific Sound of Vocalization for pain “ow,” “ouch”'': False, ''Moaning and groaning'': True, ''Mumbling'': False, ''Grunting'': False}'
         score: 6
@@ -773,6 +1227,24 @@ components:
           activities: []
         username: organization_1
         id: 4
+    orgaddpart_postresponse:
+      message: Staff/Participant added.
+    organizations_postbadresponse:
+      organization_info:
+        organization_name:
+          - This field may not be blank.
+      username:
+        - This field may not be blank.
+    organizations_postresponse:
+      is_organization: true
+      organization_info:
+        organization_name: UofA
+        description: The University of Alberta
+        startdate: '2020-03-11T10:56:11.026730Z'
+        extra_info: '{"city": "Winnipeg", "province": "Manitoba", "location_address": "2300 McPhillips St, Winnipeg, MB R2V 3M3"}'
+        activities: []
+      username: uofa1
+      id: 119
     participants_filterid:
       - is_participant: true
         participant_info:
@@ -786,6 +1258,26 @@ components:
           extra_info: ''
         username: player_1
         id: 2
+    participants_postbadresponse:
+      password:
+        - This field may not be blank.
+      participant_info:
+        gender:
+          - This field may not be null.
+      username:
+        - This field may not be blank.
+    participants_postresponse:
+      is_participant: true
+      participant_info:
+        firstname: TestFirstName
+        lastname: TestingLastName
+        dob: '1999-01-01'
+        email: rdtest@gmail.com
+        organizations: []
+        gender: F
+        extra_info: ''
+      username: participant1
+      id: 121
     participants:
       - is_participant: true
         participant_info:
@@ -834,6 +1326,25 @@ components:
         events:
           - 1
         id: 1
+    sessions_postbadresponse:
+      staff:
+        - This field may not be null.
+      participant:
+        - This field may not be null.
+      organization:
+        - Invalid pk "392" - object does not exist.
+      score:
+        - This field may not be null.
+    sessions_postresponse:
+      session_date: '2020-03-11T10:00:10.238097Z'
+      staff: 3
+      participant: 19
+      organization: 39
+      score: 11
+      session_info: '{"test":"test"}'
+      settings: ''
+      events: []
+      id: 4003
     sessions:
       - session_date: '2010-01-03T12:00:09.595188Z'
         staff: 3
@@ -867,6 +1378,25 @@ components:
           gender: M
         username: staff_1
         id: 3
+    staffs_postbadresponse:
+      password:
+        - This field may not be blank.
+      staff_info:
+        gender:
+          - This field may not be null.
+      username:
+        - This field may not be blank.
+    staffs_postresponse:
+      is_staff: true
+      staff_info:
+        firstname: TestFirst
+        lastname: TestLast
+        organizations: []
+        email: test@hotmail.com
+        extra_info: ''
+        gender: M
+      username: staff11
+      id: 120
     staffs:
       - is_staff: true
         staff_info:
@@ -889,6 +1419,21 @@ components:
           gender: F
         username: staff_2
         id: 5
+    token_postbadresponse:
+      non_field_errors:
+        - Unable to log in with provided credentials.
+    token_postresponse:
+      token: 2176d26128e5a4d5af357789e586712280cd23fe
+      user:
+        is_organization: true
+        organization_info:
+          organization_name: UofA
+          description: The University of Alberta
+          startdate: '2020-03-11T10:56:11.026730Z'
+          extra_info: '{"city": "Winnipeg", "province": "Manitoba", "location_address": "2300 McPhillips St, Winnipeg, MB R2V 3M3"}'
+          activities: []
+        username: uofa1
+        id: 119
   headers:
     ExpiresAfter:
       description: date in UTC when token expires
@@ -896,6 +1441,9 @@ components:
         type: string
         format: date-time
   securitySchemes:
+    basic_auth:
+      type: http
+      scheme: basic
     token:
       type: token
       in: header
