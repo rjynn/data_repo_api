@@ -1,0 +1,12 @@
+type: object
+properties:
+  username:
+    description: Username for log-in
+    type: string
+    minLength: 1
+    example: uofa
+  password:
+    description: Password for log-in
+    type: string
+    minLength: 1
+    example: Passw0rd

@@ -14,7 +14,7 @@ info:
     
 
     **NOTE:: All APIs are Paginated** 
-    (Example - http://142.244.87.239:8081/vibrantminds2/api/sessions/?offset=200)
+    (Example - http://SERVER_URL/vibrantminds2/api/sessions/?offset=200)
 
     # Introduction
 
@@ -56,4 +56,4 @@ tags:
     description: Events occur in a session. It can be an entry of playing another level in the same session, any movements that occur in a session, etc.
         Events include specific information about the app being used.
 servers:
-  - url: 'http://142.244.87.239:8081/vibrantminds2/api/'
+  - url: 'http://SERVER_URL/vibrantminds2/api/'
